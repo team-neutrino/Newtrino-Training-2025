@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.derive;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
@@ -24,7 +25,13 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    m_motor.setControl(m_intake.withOutput(1)); // default mode, the motor should not be spinning while we do not want
-                                                // it to (that would be bad I think,)
+    // default mode, the motor should not be spinning while we do not want
+    // it to (that would be bad I think,)
+  }
+
+  public Command runIntake() {
+    return run(() -> {
+      m_motor.setControl(m_intake.withOutput(1));
+    });
   }
 }
