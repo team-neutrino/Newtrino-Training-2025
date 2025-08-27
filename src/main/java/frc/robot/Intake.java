@@ -31,7 +31,19 @@ public class Intake extends SubsystemBase {
 
   public Command runIntake() {
     return run(() -> {
-      m_motor.setControl(m_intake.withOutput(1));
+      m_motor.setControl(m_intake.withOutput(.5));
+    });
+  }
+
+  public Command intakeDefault() {
+    return run(() -> {
+      m_motor.setControl(m_intake.withOutput(0));
+    });
+  }
+
+  public Command runOuttake() {
+    return run(() -> {
+      m_motor.setControl(m_intake.withOutput(-.5));
     });
   }
 }

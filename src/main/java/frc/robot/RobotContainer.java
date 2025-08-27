@@ -14,11 +14,12 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    m_Intake.setDefaultCommand(m_Intake.intakeDefault());
   }
 
   private void configureBindings() {
     m_controller.a().whileTrue(m_Intake.runIntake());
-
+    m_controller.b().whileTrue(m_Intake.runOuttake());
   }
 
   public Command getAutonomousCommand() {
