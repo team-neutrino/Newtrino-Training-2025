@@ -8,25 +8,32 @@ import static edu.wpi.first.units.Units.derive;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.reduxrobotics.sensors.canandcolor.Canandcolor;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.IntakeConstants.*;
 
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
+  private Canandcolor m_canandcolor;
   private TalonFX m_motor;
   private final DutyCycleOut m_intake = new DutyCycleOut(0.0);
 
   public Intake() {
+    m_canandcolor = new Canandcolor(4);
     m_motor = new TalonFX(2, "rio");
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (getCanandcolor() < PROXIMITY) {
+      runIntake();
+    }
+  }
 
-    // default mode, the motor should not be spinning while we do not want
-    // it to (that would be bad I think,)
+  public double getCanandcolor() {
+    return m_canandcolor.getProximity();
   }
 
   public Command runIntake() {
