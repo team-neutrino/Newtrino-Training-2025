@@ -7,6 +7,6 @@ package frc.robot;
 /** Add your docs here. */
 public class Constants {
     public static class IntakeConstants {
-        public static final double PROXIMITY = 0.01;
+        public static final double PROXIMITY = 0.05;
     }
 }

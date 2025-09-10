@@ -19,17 +19,21 @@ public class Intake extends SubsystemBase {
   private Canandcolor m_canandcolor;
   private TalonFX m_motor;
   private final DutyCycleOut m_intake = new DutyCycleOut(0.0);
+  private double m_intakeoutput = 0;
 
   public Intake() {
     m_canandcolor = new Canandcolor(4);
     m_motor = new TalonFX(2, "rio");
+
   }
 
   @Override
   public void periodic() {
     if (getCanandcolor() < PROXIMITY) {
-      runIntake();
+      m_intakeoutput = 0.5;
     }
+
+    m_motor.setControl(m_intake.withOutput(m_intakeoutput));
   }
 
   public double getCanandcolor() {
@@ -38,19 +42,19 @@ public class Intake extends SubsystemBase {
 
   public Command runIntake() {
     return run(() -> {
-      m_motor.setControl(m_intake.withOutput(.5));
+      m_intakeoutput = 0.5;
     });
   }
 
   public Command intakeDefault() {
     return run(() -> {
-      m_motor.setControl(m_intake.withOutput(0));
+      m_intakeoutput = 0;
     });
   }
 
   public Command runOuttake() {
     return run(() -> {
-      m_motor.setControl(m_intake.withOutput(-.5));
+      m_intakeoutput = -0.5;
     });
   }
 }
