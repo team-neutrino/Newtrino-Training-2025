@@ -9,4 +9,9 @@ public class Constants {
     public static class IntakeConstants {
         public static final double PROXIMITY = 0.05;
     }
+
+    public static class ArmConstants {
+        public static final double UPRIGHT = 37.7;
+        public static final double SCORING = 95.0;
+    }
 }
